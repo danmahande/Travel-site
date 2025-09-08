@@ -1,94 +1,141 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Travel Explorer - Home</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Recommendation Site</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+    }
+    header {
+      background: #333;
+      color: white;
+      padding: 1em;
+      text-align: center;
+    }
+    nav {
+      background: #444;
+      display: flex;
+      justify-content: center;
+      padding: 0.5em;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    #search-section {
+      text-align: center;
+      margin: 20px;
+    }
+    #results {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      padding: 15px;
+      width: 300px;
+      text-align: center;
+    }
+    .card img {
+      max-width: 100%;
+      border-radius: 5px;
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container">
-      <a class="brand" href="index.html">Travel Explorer</a>
-      <nav class="nav">
-        <a href="index.html">Home</a>
-        <a href="about.html">About Us</a>
-        <a href="contact.html">Contact</a>
-        <!-- 🔍 Search input and buttons -->
-        <input type="text" id="searchInput" placeholder="Search destinations..." />
-        <button id="searchBtn">Search</button>
-        <button id="clearBtn">Clear</button>
-      </nav>
-    </div>
+
+  <header>
+    <h1>🌍 Travel Recommendation Website</h1>
   </header>
 
-  <main class="container">
-    <section class="hero">
-      <h1>Discover your next unforgettable trip</h1>
-      <p>Find personalized destination suggestions, beautiful photos, and practical info to plan your trip.</p>
-    </section>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">About Us</a>
+    <a href="#">Contact Us</a>
+  </nav>
 
-    <section class="intro">
-      <h2>How it works</h2>
-      <p>Type in a keyword like <b>beach</b>, <b>temple</b>, or <b>country</b> in the search bar to get curated recommendations below.</p>
-    </section>
+  <section id="search-section">
+    <h2>Find Your Destination</h2>
+    <input type="text" id="searchInput" placeholder="Type 'beach', 'temple', or 'country'...">
+    <button id="searchButton">Search</button>
+    <button id="clearButton">Clear</button>
+  </section>
 
-    <!-- Recommendations are already here -->
-    <section id="beach" class="recommendation">
-      <h2>Beach Recommendations</h2>
-      <div class="two-col">
-        <div class="item">
-          <h4>Maldives</h4>
-          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=60" alt="Maldives">
-          <p>Clear water, overwater bungalows, perfect for relaxation and snorkeling.</p>
-        </div>
-        <div class="item">
-          <h4>Bali</h4>
-          <img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?w=800&q=60" alt="Bali">
-          <p>Lively beaches and cultural experiences with affordable stays and surf.</p>
-        </div>
-      </div>
-    </section>
+  <section id="results"></section>
 
-    <section id="temple" class="recommendation">
-      <h2>Temple Recommendations</h2>
-      <div class="two-col">
-        <div class="item">
-          <h4>Angkor Wat (Cambodia)</h4>
-          <img src="https://images.unsplash.com/photo-1517821099601-4f9f1d3be3b8?w=800&q=60" alt="Angkor Wat">
-          <p>Historic temple complex at sunrise — a photographer’s dream.</p>
-        </div>
-        <div class="item">
-          <h4>Golden Temple (India)</h4>
-          <img src="https://images.unsplash.com/photo-1562158070-35f2013b2b60?w=800&q=60" alt="Golden Temple">
-          <p>Spiritual and architectural wonder with serene surroundings.</p>
-        </div>
-      </div>
-    </section>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const searchInput = document.getElementById("searchInput");
+      const searchButton = document.getElementById("searchButton");
+      const clearButton = document.getElementById("clearButton");
+      const results = document.getElementById("results");
 
-    <section id="country" class="recommendation">
-      <h2>Country-based Recommendations</h2>
-      <div class="two-col">
-        <div class="item">
-          <h4>Japan</h4>
-          <img src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c?w=800&q=60" alt="Japan">
-          <p>Temples, food, and modern culture — great for first-time and repeat visitors.</p>
-        </div>
-        <div class="item">
-          <h4>Italy</h4>
-          <img src="https://images.unsplash.com/photo-1505765056607-2a8e7f8d2b03?w=800&q=60" alt="Italy">
-          <p>Rich history, world-famous cuisine, and beautiful coastlines.</p>
-        </div>
-      </div>
-    </section>
-  </main>
+      const recommendations = {
+        beach: [
+          { name: "Bondi Beach, Australia", img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e" },
+          { name: "Copacabana, Brazil", img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixid=MXwyMDg5fDB8MHxzZWFyY2h8Mnx8YmVhY2h8ZW58MHx8MHw%3D&ixlib=rb-1.2.1" }
+        ],
+        temple: [
+          { name: "Angkor Wat, Cambodia", img: "https://images.unsplash.com/photo-1548013146-72479768bada" },
+          { name: "Golden Temple, India", img: "https://images.unsplash.com/photo-1583252604941-9fb41a4b2e6f" }
+        ],
+        country: [
+          { name: "Japan", img: "https://images.unsplash.com/photo-1549692520-acc6669e2f0c" },
+          { name: "Italy", img: "https://images.unsplash.com/photo-1505765050516-f72dcac9c60e" }
+        ]
+      };
 
-  <footer class="site-footer">
-    <div class="container">
-      <p>© <span id="year"></span> Travel Explorer — plan your next adventure</p>
-    </div>
-  </footer>
+      function showRecommendations(type) {
+        results.innerHTML = "";
+        if (recommendations[type]) {
+          recommendations[type].forEach((item) => {
+            const div = document.createElement("div");
+            div.classList.add("card");
+            div.innerHTML = `
+              <h3>${item.name}</h3>
+              <img src="${item.img}" alt="${item.name}">
+            `;
+            results.appendChild(div);
+          });
+        } else {
+          results.innerHTML = "<p>No recommendations found. Try 'beach', 'temple', or 'country'.</p>";
+        }
+      }
 
-  <script src="js/script.js"></script>
+      searchButton.addEventListener("click", () => {
+        const query = searchInput.value.toLowerCase();
+        if (query.includes("beach")) {
+          showRecommendations("beach");
+        } else if (query.includes("temple")) {
+          showRecommendations("temple");
+        } else if (query.includes("country")) {
+          showRecommendations("country");
+        } else {
+          results.innerHTML = "<p>Please type 'beach', 'temple', or 'country'.</p>";
+        }
+      });
+
+      clearButton.addEventListener("click", () => {
+        searchInput.value = "";
+        results.innerHTML = "";
+      });
+    });
+  </script>
+
 </body>
 </html>
